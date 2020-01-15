@@ -1,0 +1,6 @@
+# all executable files
+*
+
+# include all source codes
+!*.cpp
+!*.c

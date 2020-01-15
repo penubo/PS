@@ -1,5 +1,6 @@
 # all executable files
 *
+in
 
 # include all source codes
 !*.cpp

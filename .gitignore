@@ -1,6 +1,7 @@
 # all executable files
-*
+a.out
 in
+out
 
 # include all source codes
 !*.cpp

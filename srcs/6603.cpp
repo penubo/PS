@@ -3,30 +3,23 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-int arr[50];
-bool visited[50];
+int arr[13];
+int ans[6];
+int k;
 
-void dfs(int i, int c, int n) {
-	
-	visited[arr[i]] = true;
-
+void dfs(int s, int c) {
 	if (c == 6) {
-		for (int j = 1; j < 50; j++) {
-			if (visited[j])
-				cout << j << " ";
+		for (int i = 0; i < 6; i++) {
+			cout << ans[i] << " ";
 		}
 		cout << "\n";
-		return ;
+		return;
 	}
 
-	visited[arr[i]] = true;
-
-
-	for (int j = i+1; j <= n; j++) {
-		dfs(j, c+1, n);
-		visited[arr[j]] = false;
+	for (int i = s; i < k; i++) {
+		ans[c] = arr[i];
+		dfs(i+1, c+1);
 	}
-
 }
 
 
@@ -35,24 +28,13 @@ int main()
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	while (true)
-	{
-		int k;
-		cin >> k;
-		if (k == 0)
-			break;
-
-		memset(arr, 0, sizeof(int) * 50);
-		for (int i = 1; i <= k; i++) {
-			int x;
-			cin >> x;
-			arr[i] = x;
+	while (cin >> k && k) {
+		
+		for (int i = 0; i < k; i++) {
+			cin >> arr[i];
 		}
 
-		for (int i = 1; i <= k; i++) {
-			dfs(i, 1, k);
-			visited[arr[i]] = false;
-		}
+		dfs(0, 0);
 		cout << "\n";
 	}
 }

@@ -40,8 +40,5 @@ int main() {
 		if (nx3 <= MAX) {
 			q.push({nx3, cnt+1});
 		}
-
-
 	}
-
 }

@@ -7,7 +7,6 @@ using namespace std;
 const int MAX = 201;
 
 int link[MAX];
-// int sizes[MAX];
 
 int find(int x) {
 	if (x == link[x])

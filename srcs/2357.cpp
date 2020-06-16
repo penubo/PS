@@ -6,49 +6,47 @@ using namespace std;
 
 int n, m;
 
-long long min_query(vector<long long> tree, int a, int b) {
+pair<long long, long long> mquery(vector<pair<long long, long long>> &tree, int a, int b) {
 	a += n; b += n;
-	long long ans = INT32_MAX;
+	pair<long long, long long> ans = {0, INT32_MAX};
 	while (a <= b) {
-		if (a%2==1) ans = min(ans, tree[a++]);
-		if (b%2==0) ans = min(ans, tree[b--]);
+		if (a%2==1) {
+			ans.first = max(ans.first, tree[a].first);
+			ans.second = min(ans.second, tree[a++].second);
+		}
+		if (b%2==0){
+			ans.first = max(ans.first, tree[b].first);
+			ans.second = min(ans.second, tree[b--].second);
+		}
 		a /= 2; b /= 2;
 	}
 	return ans;
 }
 
-long long max_query(vector<long long> tree, int a, int b) {
-	a += n; b += n;
-	long long ans = 0;
-	while (a <= b) {
-		if (a%2==1) ans = max(ans, tree[a++]);
-		if (b%2==0) ans = max(ans, tree[b--]);
-		a /= 2; b /= 2;
-	}
-	return ans;
-}
 
 int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
 	cin >> n >> m;
 
-	vector<long long> max_tree(2*n);
-	vector<long long> min_tree(2*n);
+	vector<pair<long long, long long>> tree(2*n);
+
 	for (int i = 0; i < n; i++) {
 		int x;
 		cin >> x;
-		max_tree[n+i] = x;
-		min_tree[n+i] = x;
+		tree[n+i].first = x; tree[n+i].second = x;
 	}
 
 	for (int i = n-1; i >= 1; --i) {
-		max_tree[i] = max(max_tree[2*i], max_tree[2*i+1]);
-		min_tree[i] = min(min_tree[2*i], min_tree[2*i+1]);
+		tree[i].first = max(tree[2*i].first, tree[2*i+1].first);
+		tree[i].second = min(tree[2*i].second, tree[2*i+1].second);
 	}
 
 	for (int i = 0; i < m; i++) {
 		int a, b;
 		cin >> a >> b;
-		cout << min_query(min_tree, a-1, b-1) << " " << max_query(max_tree, a-1, b-1) << "\n";
+		pair<long long, long long> res = mquery(tree, a-1, b-1);
+		cout << res.second << " " << res.first << "\n";
 	}
 }

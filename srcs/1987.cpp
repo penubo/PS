@@ -5,7 +5,6 @@
 using namespace std;
 
 char adj[22][22];
-bool visited[22][22];
 bool alpha[26];
 int n, m;
 int ans;
@@ -16,17 +15,15 @@ void dfs(int x, int y, int cnt)
 {
 
 	ans = max(ans, cnt);
-	visited[x][y] = 1;
 	alpha[adj[x][y] - 'A'] = true;
 
 	for (auto m : moves)
 	{
 		int nx = m.first + x;
 		int ny = m.second + y;
-		if (adj[nx][ny] && !visited[nx][ny] && !alpha[adj[nx][ny] - 'A'])
+		if (adj[nx][ny] && !alpha[adj[nx][ny] - 'A'])
 		{
 			dfs(nx, ny, cnt + 1);
-			visited[nx][ny] = false;
 			alpha[adj[nx][ny] - 'A'] = false;
 		}
 	}

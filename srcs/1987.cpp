@@ -39,8 +39,7 @@ int main()
 	{
 		for (int j = 1; j <= m; j++)
 		{
-			while ((c = cin.get()) == '\n')
-				;
+			while ((c = cin.get()) == '\n') ;
 			adj[i][j] = c;
 		}
 	}
